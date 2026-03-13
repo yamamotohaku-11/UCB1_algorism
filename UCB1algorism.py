@@ -3,9 +3,7 @@ from pull_arms import pull_slot
 from max_UCBi import random_max_index
 from UCBi import UCBi
 import random
-def main():
-    k = 4 #スロットの数
-    n=10000
+def UCB1algorism(k,n):
     distribution = create_distribution(k)#分布
     each_attempts = [1 for i in range(k)]#それぞれのスロットの試行回数
     each_UCBi = [0 for i in range(k)]
@@ -19,7 +17,6 @@ def main():
     
         for j in range(k):
             each_UCBi[j] = UCBi(each_sum[j],k,each_attempts[j])
-        print(each_UCBi)
         
     for i in range(k,n):
         max_UCBi_index = random_max_index(each_UCBi,k)
@@ -29,12 +26,7 @@ def main():
         reward += result
         for j in range(k):
             each_UCBi[j] = UCBi(each_sum[j],i,each_attempts[j])
-        if i % 1000 == 0:
-            print(each_UCBi,each_attempts)
 
-    print(reward)
-    print(distribution)
-    print(each_UCBi)
+    return reward,each_UCBi
 
-if __name__ == "__main__":
-    main()
+print(UCB1algorism(4,10000))
