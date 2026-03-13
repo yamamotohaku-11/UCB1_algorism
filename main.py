@@ -1,5 +1,7 @@
+from beta_distribution import create_distribution
 def main():
-    print("Hello from ucb1-algorism!")
+    distribution = create_distribution()
+    
 
 
 if __name__ == "__main__":
