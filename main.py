@@ -1,33 +1,39 @@
 from UCB1_algorism.UCB1algorism import UCB1algorism
+from UCB1_algorism.roundrobin  import roundrobin
+from UCB1_algorism.random import random_pull
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from UCB1_algorism.beta_distribution import distribution
+import random
 def main():
-    D = distribution(4,True)
-    print(D)
-    y = [0 for i in range(50)]
-    Amax = 0
-    summax = 0
-    for i in tqdm(range(1,51)):
-        n = i * 0.1
-        sum = 0
-        for j in range(500):
-            sum += UCB1algorism(4,10000,n,D)
-        y[i-1] = sum / 500
-        if summax < sum:
-            summax = sum
-            Amax = n
-    x = [i for i in range(1,51)]
-    variance = np.var(D)
-    roundedD = [round(i,3) for i in D]
-    plt.plot(x,y)
-    plt.figtext(0.5, 0.01, f"distribution:{roundedD}", ha="center")
-    plt.savefig("graph.png")
-    plt.show()
-    print(Amax)
+    distribution = (0.4,0.5,0.7,0.45)
+    n = 1000
+    k = 4
+    x = range(n)
+    reward_UCB1,y_UCB1 = UCB1algorism(k,n,distribution)
+    reward_roundrobin,y_roundrobin = roundrobin(k,n,distribution)
+    reward_random,y_random = random_pull(k,n,distribution)
 
-    
+    fig, ax = plt.subplots()
+
+    ax.plot(x, y_UCB1, label="UCB1", color="black")
+    ax.plot(x, y_roundrobin, label="RoundRobin", color="red")
+    ax.plot(x, y_random, label="random", color="blue")
+
+    ax.set_xlabel("attempt")
+    ax.set_ylabel("reward")
+    ax.legend()
+
+    ax.text(
+        0.5, -0.18,
+        f"sums of rewards- UCB1:{reward_UCB1}, RoundRobin:{reward_roundrobin}, random:{reward_random}",
+        transform=ax.transAxes,
+        ha="center"
+    )
+
+    plt.subplots_adjust(bottom=0.25)
+    plt.savefig("graph.png", bbox_inches="tight")
+    plt.show()
 
 if __name__ == "__main__":
     main()
