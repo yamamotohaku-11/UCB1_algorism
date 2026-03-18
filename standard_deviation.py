@@ -46,7 +46,6 @@ def standard_deviation():
     plt.ylim(400, 800)
     
     plt.savefig("graphs/standard_deviation.png",dpi = 600,bbox_inches = "tight")
-    plt.show
 
 if __name__ == "__main__":
     standard_deviation()

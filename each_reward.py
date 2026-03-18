@@ -23,16 +23,17 @@ def main():
     ax.set_xlabel("attempt")
     ax.set_ylabel("reward")
     ax.legend()
+    ax.set_box_aspect(1)
 
     ax.text(
         0.5, -0.18,
-        f"sums of rewards- UCB1:{reward_UCB1}, RoundRobin:{reward_roundrobin}, random:{reward_random}",
+        f"sums of rewards | UCB1:{reward_UCB1}, RoundRobin:{reward_roundrobin}, random:{reward_random}",
         transform=ax.transAxes,
         ha="center"
     )
 
     plt.subplots_adjust(bottom=0.25)
-    plt.savefig("graph.png", bbox_inches="tight")
+    plt.savefig("graphs/each_reward.png", bbox_inches="tight",dpi = 600)
     plt.show()
 
 if __name__ == "__main__":
