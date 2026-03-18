@@ -5,11 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
+
 def standard_deviation():
     N = 10
-    distribution = (0.4,0.5,0.7,0.45)
     n = 1000
     k = 4
+    distribution = (0.3,0.5,0.45,0.7)
     UCB1_rewards = [0 for i in range(N)]
     roundrobin_rewards = [0 for i in range(N)]
     random_rewards = [0 for i in range(N)]
